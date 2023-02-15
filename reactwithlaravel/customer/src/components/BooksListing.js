@@ -31,14 +31,21 @@ const Books = () => {
         }
         setSpinner(true);
         await searchBooks(bodyNav).then(response => {
-
+            // alert(response.data.status)
             if (response.data.status === 201) {
                 setBooks(response.data.selectedBookRecord);
                 setSpinner(false);
             }
-            else if (response.data.status === 404) {
-                setBooks(response.data.selectedBookRecord);
+            else {
+                toast.success(response.data.selectedBookRecord, {
+                    position: "bottom-right",
+                    hideProgressBar: false,
+                    progress: undefined,
+                });
+                //alert(response.data.selectedBookRecord)
                 setSpinner(false);
+                setBook('');
+
             }
         }).catch(error => {
             setSpinner(false);
