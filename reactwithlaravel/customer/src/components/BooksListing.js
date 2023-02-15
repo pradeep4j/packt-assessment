@@ -37,7 +37,7 @@ const Books = () => {
                 setSpinner(false);
             }
             else {
-                toast.success(response.data.selectedBookRecord, {
+                toast.error(response.data.selectedBookRecord, {
                     position: "bottom-right",
                     hideProgressBar: false,
                     progress: undefined,
@@ -49,7 +49,7 @@ const Books = () => {
             }
         }).catch(error => {
             setSpinner(false);
-            toast.success(error.message, {
+            toast.error(error.message, {
                 position: "bottom-right",
                 hideProgressBar: false,
                 progress: undefined,
