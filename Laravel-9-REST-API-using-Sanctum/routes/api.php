@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
  Route::post('/add-book',[BookController::class,'store']);
- Route::post('/update-book/{id}',[BookController::class,'update']);
+ Route::post('/update-book/{id}',[BookController::class,'update']);//->middleware('apfd');
 Route::prefix('user')->group(function() {
     Route::post('register', [UserAuthController::class, 'register']);
     Route::post('login', [UserAuthController::class, 'login']);

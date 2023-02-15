@@ -198,7 +198,7 @@ const Addbook = () => {
     }, []);
     return (
 
-        <form method="PUT" enctype="multipart/form-data" >
+        <form method="POST" enctype="multipart/form-data" >
             <Container>
                 <LibraryBooksIcon sx={{ bgcolor: deepOrange[500] }} />
                 <Typography variant="h5">Update Book<Ptags>(All the field having * are required)</Ptags></Typography>

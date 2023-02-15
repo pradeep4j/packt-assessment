@@ -66,7 +66,14 @@ class ParseInputStream
             return null;
         }
 
-        preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
+        //preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
+       // return $matches[1];
+       preg_match('/boundary=(.*)$/', $_SERVER['CONTENT_TYPE'], $matches);
+    
+        if (empty($matches) || ! isset($matches[1])) {
+            return null;
+        }
+        
         return $matches[1];
     }
 
@@ -234,7 +241,7 @@ class ParseInputStream
      */
     private function parameter($string)
     {
-        $data = [];
+       /* $data = [];
 
         if ( preg_match('/name=\"([^\"]*)\"[\n|\r]+([^\n\r].*)?\r$/s', $string, $match) ) {
 	        if (preg_match('/^(.*)\[\]$/i', $match[1], $tmp)) {
@@ -244,7 +251,16 @@ class ParseInputStream
 	            $data[$match[1]] = ($match[2] !== NULL ? $match[2] : '');
 	        }
 		}
-
+          return $data;*/
+        $data = [];
+        if (preg_match('/name=\"([^\"]*)\"[\n|\r]+([^\n\r].*)?\r$/s', $string, $match)) {
+            if (preg_match('/^(.*)\[\]$/i', $match[1], $tmp)) {
+                $data[$tmp[1].'[]'] = (isset($match[2]) && $match[2] !== null ? $match[2] : null);
+            } else {
+                $data[$match[1]] = (isset($match[2]) && $match[2] !== null ? $match[2] : null);
+            }
+        }
+      
         return $data;
     }
 

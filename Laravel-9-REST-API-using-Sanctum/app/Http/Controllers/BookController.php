@@ -133,6 +133,7 @@ class BookController extends Controller
     public function update(Request $request, $bookid)
     {
         $Record=Book::find($bookid);
+       // return response()->json(['status' => 400, 'message' => $request->all()]);
         $validator = Validator::make($request->all(),[
             'title' => ['required', 'string', 'max:100'],
             'author' => ['required', 'string', 'max:300'],
@@ -154,16 +155,16 @@ class BookController extends Controller
                         File::delete($exists);
                     }
                     //upload new image
-                    $imageName = time().'.'.$request->Image->extension();  
+                    $imageName = time().'.'.$request->Image->extension(); 
                     $request->Image->move(public_path('book/images/'), $imageName);
-                    $params['Image'] = $imageName;  
-                    Book::whereId($bookid)->update($params); //updating book records
+                   // $params['Image'] = $imageName;  
+                    Book::whereId($bookid)->update(array_merge($validator->validated(),['Image' => $imageName])); //updating book records
                     return response()->json(['status' => 201, 'message' => 'Book Updated Successfully!!']);
                 }
                 else{
                     //when new image has not be uploaded same old image remains
-                    $params['image'] = $Record['image'];
-                    Book::whereId($bookid)->update($params); //updating book records
+                   // $params['image'] = $Record['image'];
+                    Book::whereId($bookid)->update(array_merge($validator->validated(),['Image' => $Record['image']])); //updating book records
                     return response()->json(['status' => 201, 'message' => $request->file('Image')]);
                 }
                

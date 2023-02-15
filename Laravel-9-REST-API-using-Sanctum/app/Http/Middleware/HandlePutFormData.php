@@ -18,7 +18,7 @@ use Illuminate\Support\Arr;
  * 
  */
 
-class HandlePutFormData
+class HandlePutFormData 
 {
     /**
      * Handle an incoming request.
