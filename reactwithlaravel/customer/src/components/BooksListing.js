@@ -59,8 +59,6 @@ const Books = () => {
     const clearSearch = (e) => {
         e.preventDefault();
         document.getElementById('search').value = '';
-        booksSearch('');
-        //  alert(books)
         getBook();
     }
     const getBook = async () => {
