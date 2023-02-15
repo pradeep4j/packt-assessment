@@ -29,27 +29,29 @@ const Books = () => {
         const bodyNav = {
             searchValue: searchNav
         }
-        setSpinner(false);
+        setSpinner(true);
         await searchBooks(bodyNav).then(response => {
-            //alert(response.data.status + '--')
 
             if (response.data.status === 201) {
-                // alert('asas')
-                setSpinner(true);
-                //alert(JSON.stringify(response.data.selectedBookRecord))
                 setBooks(response.data.selectedBookRecord);
+                setSpinner(false);
             }
-            else {
-                alert('sdsd')
-                //     setSpinner(true);
-                setBooks('');
+            else if (response.data.status === 404) {
+                setBooks(response.data.selectedBookRecord);
+                setSpinner(false);
             }
+        }).catch(error => {
+            setSpinner(false);
+            toast.success(error.message, {
+                position: "bottom-right",
+                hideProgressBar: false,
+                progress: undefined,
+            });
         });
     }
     const clearSearch = (e) => {
         e.preventDefault();
         document.getElementById('search').value = '';
-        //  userInfoBySearch = '';
         booksSearch('');
         //  alert(books)
         getBook();
@@ -72,7 +74,7 @@ const Books = () => {
                 hideProgressBar: false,
                 progress: undefined,
             });
-        })
+        });
 
         // await delay(student.data);
     }
@@ -94,7 +96,7 @@ const Books = () => {
             listContent = books.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((book) => (<BookingListingRecords BookingListingRecord={book} />))
         }
         else {
-            listContent = <tr><td colSpan='7'><h3>No students Found!!</h3></td></tr>
+            listContent = <tr><td colSpan='7'><h3>No books Found!!</h3></td></tr>
         }
     }
     // alert(students.length);

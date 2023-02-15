@@ -101,11 +101,14 @@ class BookController extends Controller
                           ->orWhere('isbn','like',"%" . $request->searchValue . "%")
                           ->orWhere('genres','like',"%" . $request->searchValue . "%")
                           ->get();
-        if($bookWithId)
+        if(count($bookWithId)>0)
+        {
             return response()->json(['status' => 201, 'selectedBookRecord' => $bookWithId]);
-            else{
+        }
+            else
+        {
                 return response()->json(['status' => 404, 'selectedBookRecord' => 'No record found!']);
-            }
+        }
     }
 
     /**
