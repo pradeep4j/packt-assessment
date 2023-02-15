@@ -24,18 +24,19 @@ const Books = () => {
         setRowsPerPage(parseInt(event.target.value, 2));
         setPage(0);
     };
-    const booksSearch = () => {
+    const booksSearch = async () => {
         setBook('');
         const bodyNav = {
             searchValue: searchNav
         }
-        // setSpinner(false);
-        searchBooks(bodyNav).then(response => {
+        setSpinner(false);
+        await searchBooks(bodyNav).then(response => {
             //alert(response.data.status + '--')
 
             if (response.data.status === 201) {
+                // alert('asas')
                 setSpinner(true);
-                // alert(JSON.stringify(response.data.selectedBookRecord))
+                //alert(JSON.stringify(response.data.selectedBookRecord))
                 setBooks(response.data.selectedBookRecord);
             }
             else {
@@ -120,7 +121,7 @@ const Books = () => {
                             <BookingListingRecords BookingListingRecord={book} />
                         </Col>
                     );
-                }) : ''}
+                }) : <Loading />}
             </Row>
             {count > 0 ?
                 <TablePagination
