@@ -1,0 +1,37 @@
+.mystyle{
+        display:none;
+}
+.not-active {
+  pointer-events: none;
+  cursor: default;
+}
+.fonts {
+  color: white;
+  background-color: rgb(41, 133, 212);
+}
+.bag-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  /*background: yellow;*/
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+  margin-left: 5px;
+}
+.bag-quantity1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  /*border-radius: 50%;
+  background: yellow;*/
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+  margin-left: 5px;
+}
