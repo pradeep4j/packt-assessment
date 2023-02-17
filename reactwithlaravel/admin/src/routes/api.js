@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAPIAdminUrl, getAPIBookUrl, getToken } from '../utils/localStorage';
+import { http, getAPIAdminUrl, getAPIBookUrl, getToken } from '../utils/localStorage';
 
 const URLAdmin = getAPIAdminUrl();
 const URLBook = getAPIBookUrl();
@@ -23,14 +23,15 @@ export const adminlogout = async () => {
 }
 ///students sign up,login and logout etc.
 export const createBooks = async (data) => {
+        //  alert(http)
         try {
                 const config = {
                         headers: {
-                                "Content-Type": "application/json",
+                                "Content-Type": "multipart/form-data",//"application/json",
                                 Authorization: `Bearer ${getToken()}`
                         }
                 }
-                return await axios.post(`${URLBook}/add-book`, data);
+                return await axios.post(`${URLBook}/add-book`, data, config);
         }
         catch (err) {
                 console.log(err.message);
@@ -40,12 +41,12 @@ export const updateBook = async (data, id) => {
         try {
                 const config = {
                         headers: {
-                                "Content-Type": "application/json",
-                                'enctype': 'multipart/form-data',
+                                "Content-Type": "multipart/form-data",
+                                // 'enctype': 'multipart/form-data',
                                 Authorization: `Bearer ${getToken()}`
                         }
                 }
-                return await axios.post(`${URLBook}/update-book/${id}`, data);
+                return await axios.post(`${URLBook}/update-book/${id}`, data, config);
         }
         catch (err) {
                 console.log(err.message);

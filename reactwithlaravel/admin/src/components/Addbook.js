@@ -118,21 +118,21 @@ const Addbook = () => {
                 navigate("/books");
             }
             else if (resp.data.status === 400) {
-                toast.success(resp.data.message, {
+                toast.error(resp.data.message, {
                     position: "bottom-right",
                     hideProgressBar: false,
                     progress: undefined,
                 });
             }
             else {
-                toast.success(resp.data.message, {
+                toast.error(resp.data.message, {
                     position: "bottom-right",
                     hideProgressBar: false,
                     progress: undefined,
                 });
             }
         }).catch(error => {
-            toast.success(error.message, {
+            toast.error(error.message, {
                 position: "bottom-right",
                 hideProgressBar: false,
                 progress: undefined,
@@ -280,7 +280,7 @@ const Addbook = () => {
                                 <img src={imagePreview} alt="error!" />
                             </>
                         ) : (
-                            <p>Student image upload preview will appear here!</p>
+                            <p>Book image upload preview will appear here!</p>
                         )}
                     </ImagePreview>
                 </ImageList><Spannings id="iamges">{(formik.touched.Image && formik.errors.Image) ? <div>{formik.errors.Image}</div> : null}</Spannings>

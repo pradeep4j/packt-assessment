@@ -19,7 +19,7 @@ class BookController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:sanctum',['except' => ['store','update']]);
+        $this->middleware('auth:sanctum');
     }
     public function index()
     {
@@ -63,7 +63,7 @@ class BookController extends Controller
 
         ]);
         try{
-            //return response()->json(['status' => 202, 'message' => $request->hasFile('image')]);
+            // return response()->json(['status' => 400, 'message' => $request->all()]);
             if(!$validator->fails()) {
                 if($request->hasFile('Image')){
                     $imageName = time().'.'.$request->Image->extension();  
@@ -80,9 +80,9 @@ class BookController extends Controller
                 return response()->json(['status' => 400, 'message' => $validator->messages()]);
             }
 
-        }catch(\Exception $e){
-            \Log::error($e->getMessage());
-            return response()->json(['status' => 500, 'message'=>'Something went wrong. Kindly check via try and catch!!']);
+        }catch(Exception $e){
+            Log::error($e->getMessage());
+            return response()->json(['status' => 500, 'message'=>$e->getMessage()]);
         }
     }
 
@@ -136,7 +136,7 @@ class BookController extends Controller
     public function update(Request $request, $bookid)
     {
         $Record=Book::find($bookid);
-       // return response()->json(['status' => 400, 'message' => $request->all()]);
+        
         $validator = Validator::make($request->all(),[
             'title' => ['required', 'string', 'max:100'],
             'author' => ['required', 'string', 'max:300'],
@@ -148,6 +148,7 @@ class BookController extends Controller
             'publisher' => ['required','max:255'],
 
         ]);
+       // return response()->json(['status' => 400, 'message' => $request->hasFile('Image')]);
         try{
             if(!$validator->fails()) {
                 if($request->hasFile('Image')!==null){

@@ -10,6 +10,7 @@ import '../hide.css';
 const Books = () => {
 
     //const {id} = useParams();
+    let count = 0;
     const [books, setBooks] = useState([]);
     const [spinner, setSpinner] = useState(true);
     const [dataPage, setDataPage] = useState(0);
@@ -22,8 +23,6 @@ const Books = () => {
         setPage(0);
     };
     const getBook = async () => {
-        //  getAllBooks();
-        // setBooks(book.data);
         await getAllBooks().then(response => {
             if (response.data.status === 201) {
                 setBooks(response.data.message);
@@ -50,7 +49,7 @@ const Books = () => {
         getBook();
         setPage(0);
     }, [dataPage]);
-    let count = 0;
+
     let listContent;
     // alert(books.length);
     if (spinner) {

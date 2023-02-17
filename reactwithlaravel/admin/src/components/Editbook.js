@@ -137,21 +137,21 @@ const Addbook = () => {
                 navigate("/books");
             }
             else if (resp.data.status === 400) {
-                toast.success(resp.data.message, {
+                toast.error(resp.data.message, {
                     position: "bottom-right",
                     hideProgressBar: false,
                     progress: undefined,
                 });
             }
             else {
-                toast.success(resp.data.message, {
+                toast.error(resp.data.message, {
                     position: "bottom-right",
                     hideProgressBar: false,
                     progress: undefined,
                 });
             }
         }).catch(error => {
-            toast.success(error.message, {
+            toast.error(error.message, {
                 position: "bottom-right",
                 hideProgressBar: false,
                 progress: undefined,

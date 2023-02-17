@@ -16,18 +16,18 @@ use App\Http\Controllers\BookController;
 |
 */
 Route::middleware('auth:sanctum')->group( function () {
-//    Route::post('/add-book',[BookController::class,'store']);
+    Route::post('/add-book',[BookController::class,'store']);
     Route::get('/view-book',[BookController::class,'index']);
     Route::get('/edit-book/{id}',[BookController::class,'edit']);
-   // Route::put('/update-book/{id}',[BookController::class,'update']);//->middleware('apfd');
+    Route::match(['put', 'patch'],'/update-book/{id}',[BookController::class,'update']);//->middleware('apfd');
     Route::delete('/delete-book/{id}',[BookController::class,'destroy']);
     
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
- Route::post('/add-book',[BookController::class,'store']);
- Route::post('/update-book/{id}',[BookController::class,'update']);//->middleware('apfd');
+ //Route::post('/add-book',[BookController::class,'store']);
+ //Route::post('/update-book/{id}',[BookController::class,'update']);//->middleware('apfd');
 Route::prefix('user')->group(function() {
     Route::post('register', [UserAuthController::class, 'register']);
     Route::post('login', [UserAuthController::class, 'login']);
